@@ -73,3 +73,6 @@ crashlytics-build.properties
 
 # Custom
 /.idea/
+
+/Assets/Editor/JSON/
+/Assets/Editor/JSON.meta

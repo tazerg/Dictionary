@@ -31,6 +31,7 @@ namespace JHI.Dict
 
             var windowService = FindFirstObjectByType<WindowService>();
             ServiceLocator.RegisterService<IWindowService>(windowService);
+            windowService.OpenWindow<MainWindow>();
         }
 
         private void OnDestroy()
