@@ -4,5 +4,6 @@
         <ui:TextField label="Оригинал" name="OriginalText" class="text-field" />
         <ui:TextField label="Перевод" name="TranslatedText" class="text-field" />
         <ui:Button text="Добавить" name="AddButton" style="margin-top: 50px; margin-right: 60px; margin-left: 60px; margin-bottom: 0;" />
+        <ui:Button text="X" name="CloseButton" style="width: 50px; height: 50px; align-self: flex-end; margin-top: 0; margin-right: 0; margin-bottom: 0; margin-left: 0; padding-top: 0; padding-right: 0; padding-bottom: 0; padding-left: 0; position: absolute; top: 50px; right: 25px;" />
     </ui:VisualElement>
 </ui:UXML>
