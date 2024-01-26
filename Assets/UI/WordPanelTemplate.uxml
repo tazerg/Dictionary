@@ -1,0 +1,17 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements">
+    <ui:VisualElement name="WordPanelTemplate" style="flex-grow: 1;">
+        <ui:VisualElement style="flex-direction: row; justify-content: flex-start; align-self: stretch; align-items: auto; flex-wrap: nowrap;">
+            <ui:Label text="Слово:" name="OriginalLabel" style="min-width: auto; min-height: auto; font-size: 36px;" />
+            <ui:Label text="Значение слова" name="OriginalValueLabel" style="font-size: 36px;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-direction: row; justify-content: flex-start; align-self: stretch; align-items: auto; flex-wrap: nowrap;">
+            <ui:Label text="Перевод:" name="TranslatedLabel" style="min-width: auto; min-height: auto; font-size: 36px;" />
+            <ui:Label text="Значение перевода" name="TranslatedValueLabel" style="font-size: 36px;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-direction: row; justify-content: flex-start; align-self: stretch; align-items: auto; flex-wrap: nowrap;">
+            <ui:Label text="Прогресс изучения:" name="ProgressLabel" style="min-width: auto; min-height: auto; font-size: 36px;" />
+            <ui:Label text="100%" name="ProgressValueLabel" style="font-size: 36px;" />
+        </ui:VisualElement>
+        <ui:VisualElement style="flex-direction: row; justify-content: flex-start; align-self: stretch; align-items: auto; flex-wrap: nowrap; max-height: 2px; min-height: 2px; background-color: rgb(0, 0, 0);" />
+    </ui:VisualElement>
+</ui:UXML>

@@ -16,11 +16,16 @@ namespace JHI.Dict.UI
         
         public override WindowType WindowType => WindowType.FullScreen;
 
-        private void Start()
+        protected override void Awake()
         {
             _windowService = ServiceLocator.GetService<IWindowService>();
             _addingWordService = ServiceLocator.GetService<IAddingWordService>();
+            
+            base.Awake();
+        }
 
+        private void OnEnable()
+        {
             var root = GetComponent<UIDocument>().rootVisualElement;
             _originalTextField = root.Q<TextField>("OriginalText");
             _translateTextField = root.Q<TextField>("TranslatedText");
@@ -30,11 +35,11 @@ namespace JHI.Dict.UI
             _addWordsButton.RegisterCallback<ClickEvent>(OnAddWordButtonClick);
             _closeButton.RegisterCallback<ClickEvent>(OnCloseClick);
         }
-        
-        private void OnDestroy()
+
+        private void OnDisable()
         {
-            _addWordsButton.UnregisterCallback<ClickEvent>(OnAddWordButtonClick);
-            _closeButton.RegisterCallback<ClickEvent>(OnCloseClick);
+            _addWordsButton?.UnregisterCallback<ClickEvent>(OnAddWordButtonClick);
+            _closeButton?.UnregisterCallback<ClickEvent>(OnCloseClick);
         }
 
         private void OnAddWordButtonClick(ClickEvent evt)

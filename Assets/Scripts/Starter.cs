@@ -26,11 +26,14 @@ namespace JHI.Dict
             ServiceLocator.RegisterService(unexploredWordsProvider);
             var exploredWordsProvider = new ExploredWordsProvider(_allWordsProvider);
             ServiceLocator.RegisterService(exploredWordsProvider);
+            var sortedByUnexploredWordsProvider = new SortedByUnexploredWordsProvider(_allWordsProvider);
+            ServiceLocator.RegisterService(sortedByUnexploredWordsProvider);
+            
+            var windowService = FindFirstObjectByType<WindowService>();
+            ServiceLocator.RegisterService<IWindowService>(windowService);
 
             await SceneLoader.Load(Consts.MAIN_SCENE_PATH);
 
-            var windowService = FindFirstObjectByType<WindowService>();
-            ServiceLocator.RegisterService<IWindowService>(windowService);
             windowService.OpenWindow<MainWindow>();
         }
 

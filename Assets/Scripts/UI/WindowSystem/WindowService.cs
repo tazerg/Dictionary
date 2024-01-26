@@ -10,10 +10,9 @@ namespace JHI.Dict.UI
 
         private IWindow _currentOpenedWindow;
 
-        public void OpenWindow<T>() where T : IWindow
+        public void OpenWindow<T>() where T : BaseWindow
         {
-            var window = _windows.FirstOrDefault(x => x is T);
-            if (window == null)
+            if (!TryFindWindow<T>(out var window))
             {
                 Debug.LogError($"Can't find window with type {nameof(T)}");
                 return;
@@ -22,6 +21,20 @@ namespace JHI.Dict.UI
             _currentOpenedWindow?.Close();
             _currentOpenedWindow = window;
             _currentOpenedWindow.Open();
+        }
+
+        private bool TryFindWindow<T>(out IWindow window) where T : BaseWindow
+        {
+            window = _windows.FirstOrDefault(x => x is T);
+            if (window != null)
+                return true;
+
+            window = FindFirstObjectByType<T>(FindObjectsInactive.Include);
+            if (window == null)
+                return false;
+            
+            _windows.Add(window);
+            return true;
         }
 
         private void Awake()

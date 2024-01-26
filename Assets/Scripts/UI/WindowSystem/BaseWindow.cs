@@ -15,5 +15,10 @@ namespace JHI.Dict.UI
         {
             gameObject.SetActive(false);
         }
+
+        protected virtual void Awake()
+        {
+            Close();
+        }
     }
 }
