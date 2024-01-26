@@ -4,10 +4,10 @@ namespace JHI.Dict.UI
 {
     public class MessageWindow : BaseWindow
     {
-        public override WindowType WindowType => WindowType.FullScreen;
-        
         private Button _closeButton;
         private Label _message;
+        
+        public override WindowType WindowType => WindowType.FullScreen;
 
         public void Open(string message)
         {

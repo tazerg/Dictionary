@@ -49,6 +49,8 @@ namespace JHI.Dict.UI
                 messageWindow.Open(Messages.NOT_ENOUGH_WORDS);
                 return;
             }
+            
+            _windowService.OpenWindow<ExploreWindow>();
         }
 
         private void OnAddWordButtonClick(ClickEvent evt)
