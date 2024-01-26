@@ -28,6 +28,8 @@ namespace JHI.Dict
             ServiceLocator.RegisterService(exploredWordsProvider);
             var sortedByUnexploredWordsProvider = new SortedByUnexploredWordsProvider(_allWordsProvider);
             ServiceLocator.RegisterService(sortedByUnexploredWordsProvider);
+            var wordsCountProvider = new WordsCountProvider(_allWordsProvider);
+            ServiceLocator.RegisterService(wordsCountProvider);
             
             var windowService = FindFirstObjectByType<WindowService>();
             ServiceLocator.RegisterService<IWindowService>(windowService);

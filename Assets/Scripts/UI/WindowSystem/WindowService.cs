@@ -23,6 +23,17 @@ namespace JHI.Dict.UI
             _currentOpenedWindow.Open();
         }
 
+        public T GetWindow<T>() where T : BaseWindow
+        {
+            if (!TryFindWindow<T>(out var window))
+            {
+                Debug.LogError($"Can't find window with type {nameof(T)}");
+                return null;
+            }
+
+            return window as T;
+        }
+
         private bool TryFindWindow<T>(out IWindow window) where T : BaseWindow
         {
             window = _windows.FirstOrDefault(x => x is T);
