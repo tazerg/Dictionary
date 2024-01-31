@@ -1,9 +1,10 @@
+#if UI_ELEMENTS
 using System.Globalization;
 using JHI.Dict.Providers;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace JHI.Dict.UI
+namespace JHI.Dict.UI.UIElements
 {
     public class WordsListWindow : BaseWindow
     {
@@ -57,3 +58,4 @@ namespace JHI.Dict.UI
         }
     }
 }
+#endif

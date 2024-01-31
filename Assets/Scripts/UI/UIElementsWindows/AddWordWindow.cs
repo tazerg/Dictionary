@@ -1,8 +1,9 @@
+#if UI_ELEMENTS
 using JHI.Dict.Model;
 using JHI.Dict.Services;
 using UnityEngine.UIElements;
 
-namespace JHI.Dict.UI
+namespace JHI.Dict.UI.UIElements
 {
     public class AddWordWindow : BaseWindow
     {
@@ -56,3 +57,4 @@ namespace JHI.Dict.UI
         }
     }
 }
+#endif

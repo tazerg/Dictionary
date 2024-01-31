@@ -3,6 +3,11 @@ using JHI.Dict.Providers;
 using JHI.Dict.Serialization;
 using JHI.Dict.Services;
 using JHI.Dict.UI;
+#if UI_ELEMENTS
+using JHI.Dict.UI.UIElements;
+#else
+using JHI.Dict.UI.UGUI;
+#endif
 using JHI.Dict.Utils;
 using UnityEngine;
 

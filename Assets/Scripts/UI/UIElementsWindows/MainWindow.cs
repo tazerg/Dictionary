@@ -1,7 +1,8 @@
+#if UI_ELEMENTS
 using JHI.Dict.Providers;
 using UnityEngine.UIElements;
 
-namespace JHI.Dict.UI
+namespace JHI.Dict.UI.UIElements
 {
     public class MainWindow : BaseWindow
     {
@@ -64,3 +65,4 @@ namespace JHI.Dict.UI
         }
     }
 }
+#endif

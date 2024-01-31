@@ -1,6 +1,7 @@
+#if UI_ELEMENTS
 using UnityEngine.UIElements;
 
-namespace JHI.Dict.UI
+namespace JHI.Dict.UI.UIElements
 {
     public class MessageWindow : BaseWindow
     {
@@ -36,3 +37,4 @@ namespace JHI.Dict.UI
         }
     }
 }
+#endif

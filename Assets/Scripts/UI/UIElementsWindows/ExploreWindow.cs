@@ -1,13 +1,11 @@
+#if UI_ELEMENTS
 using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
-using JHI.Dict.Extensions;
-using JHI.Dict.Model;
-using JHI.Dict.Providers;
+using JHI.Dict.Services;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-namespace JHI.Dict.UI
+namespace JHI.Dict.UI.UIElements
 {
     public class ExploreWindow : BaseWindow
     {
@@ -19,27 +17,24 @@ namespace JHI.Dict.UI
         private Button _closeButton;
         
         private IWindowService _windowService;
-        private UnexploredWordsProvider _wordsProvider;
+        private ExploreWordsService _exploreWordsService;
+        private RandomIndexService _randomIndexService;
 
         private bool _checking;
         private int _correctButtonIndex;
         private int _currentExploringWordsCount;
-        private Word _currentWord;
 
         private StyleColor _normalColor;
         private readonly StyleColor _correctColor = new(new Color(0f, 1f, 0f));
         private readonly StyleColor _incorrectColor = new(new Color(1f, 0f, 0f));
-        
-        private readonly HashSet<int> _indexes = new();
-        private readonly HashSet<Word> _currentExplored = new();
-        private readonly HashSet<Word> _currentExcluded = new();
         
         public override WindowType WindowType => WindowType.FullScreen;
         
         protected override void Awake()
         {
             _windowService = ServiceLocator.GetService<IWindowService>();
-            _wordsProvider = ServiceLocator.GetService<UnexploredWordsProvider>();
+            _exploreWordsService = ServiceLocator.GetService<ExploreWordsService>();
+            _randomIndexService = ServiceLocator.GetService<RandomIndexService>();
             
             base.Awake();
         }
@@ -62,6 +57,8 @@ namespace JHI.Dict.UI
 
             _normalColor = _firstButton.style.color;
 
+            _exploreWordsService.Setup();
+
             SelectWord();
         }
 
@@ -76,22 +73,18 @@ namespace JHI.Dict.UI
 
         private void SelectWord()
         {
-            _currentExcluded.Clear();
-            for (var i = 0; i < 4; i++)
-            {
-                _indexes.Add(i);
-            }
+            _randomIndexService.Setup(4);
+            _exploreWordsService.GetWord(out var currentWord, out var randomWords);
             
-            _currentWord = GetRandomNotExploredWord();
-            _wordLabel.text = _currentWord.Original;
-            _correctButtonIndex = GetRandomIndex();
+            _wordLabel.text = currentWord.Original;
+            _correctButtonIndex = _randomIndexService.GetRandomIndex();
             var button = GetButton(_correctButtonIndex);
-            button.text = _currentWord.Translate;
+            button.text = currentWord.Translate;
 
-            for (var i = 0; i < 3; i++)
+            for (var i = 0; i < randomWords.Length; i++)
             {
-                var randomWord = GetRandomWord();
-                var randomIndex = GetRandomIndex();
+                var randomWord = randomWords[i];
+                var randomIndex = _randomIndexService.GetRandomIndex();
                 var randomButton = GetButton(randomIndex);
                 randomButton.text = randomWord.Translate;
             }
@@ -111,14 +104,14 @@ namespace JHI.Dict.UI
             
             if (_correctButtonIndex == index)
             {
-                _currentWord.NumberOfCorrect++;
+                _exploreWordsService.UpdateProgressCurrent(true);
                 _ = WaitAndSelectNext();
                 return;
             }
 
             var incorrectButton = GetButton(index);
             incorrectButton.style.color = _incorrectColor;
-            _currentWord.NumberOfCorrect--;
+            _exploreWordsService.UpdateProgressCurrent(false);
             _ = WaitAndSelectNext();
         }
 
@@ -137,32 +130,6 @@ namespace JHI.Dict.UI
                 OnCloseClick(null);
             
             SelectWord();
-        }
-
-        private Word GetRandomNotExploredWord()
-        {
-            var word = _wordsProvider.GetWords().RandomElement();
-            if (!_currentExplored.Add(word))
-                return GetRandomNotExploredWord();
-
-            _currentExcluded.Add(word);
-            return word;
-        }
-
-        private Word GetRandomWord()
-        {
-            var word = _wordsProvider.GetWords().RandomElement();
-            if (!_currentExcluded.Add(word))
-                return GetRandomWord();
-
-            return word;
-        }
-
-        private int GetRandomIndex()
-        {
-            var index = _indexes.RandomElement();
-            _indexes.Remove(index);
-            return index;
         }
 
         private Button GetButton(int index)
@@ -208,3 +175,4 @@ namespace JHI.Dict.UI
         }
     }
 }
+#endif
