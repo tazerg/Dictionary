@@ -22,9 +22,9 @@ namespace JHI.Dict.UI.UGUI
         private int _correctButtonIndex;
         private int _currentExploringWordsCount;
 
-        private ColorBlock _normalColor;
-        private ColorBlock _correctColor;
-        private ColorBlock _incorrectColor;
+        private Color _normalColor;
+        private Color _correctColor;
+        private Color _incorrectColor;
         
         public override WindowType WindowType => WindowType.FullScreen;
         
@@ -36,12 +36,9 @@ namespace JHI.Dict.UI.UGUI
             
             base.Awake();
             
-            _normalColor = _answerButtons[0].colors;
-            var colorBlock = _answerButtons[0].colors;
-            colorBlock.normalColor = new Color(0f, 1f, 0f);
-            _correctColor = colorBlock;
-            colorBlock.normalColor = new Color(1f, 0f, 0f);
-            _incorrectColor = colorBlock;
+            _normalColor = _answerButtons[0].color;
+            _correctColor = new Color(0f, 1f, 0f);
+            _incorrectColor = new Color(1f, 0f, 0f);
             
             _closeButton.onClick.AddListener(OnCloseClick);
             for(var i = 0; i < _answerButtons.Length; i++)
@@ -94,7 +91,7 @@ namespace JHI.Dict.UI.UGUI
                 return;
             
             var correctButton = _answerButtons[_correctButtonIndex];
-            correctButton.colors = _correctColor;
+            correctButton.color = _correctColor;
             
             if (_correctButtonIndex == index)
             {
@@ -104,7 +101,7 @@ namespace JHI.Dict.UI.UGUI
             }
 
             var incorrectButton = _answerButtons[index];
-            incorrectButton.colors = _incorrectColor;
+            incorrectButton.color = _incorrectColor;
             _exploreWordsService.UpdateProgressCurrent(false);
             _ = WaitAndSelectNext();
         }
@@ -117,7 +114,7 @@ namespace JHI.Dict.UI.UGUI
 
             foreach (var answerButton in _answerButtons)
             {
-                answerButton.colors = _normalColor;
+                answerButton.color = _normalColor;
             }
             
             _checking = false;

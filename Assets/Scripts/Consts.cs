@@ -4,7 +4,8 @@ namespace JHI.Dict
     {
         public const string WORDS_PREFS_KEY = "words";
 
-        public const string MAIN_SCENE_PATH = "Main";
+        public const string MAIN_UIELEMENTS_SCENE_PATH = "Main_UIElements";
+        public const string MAIN_UGUI_SCENE_PATH = "Main_UIGUI";
 
         public const float WAIT_FOR_NEXT_WORD_TIME_SEC = 3f;
         public const int EXPLORED_WORDS_CORRECT_ANSWER_NUMBERS = 100;

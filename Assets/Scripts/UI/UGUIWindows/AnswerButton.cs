@@ -9,11 +9,12 @@ namespace JHI.Dict.UI.UGUI
     {
         [SerializeField] private Button _button;
         [SerializeField] private TMP_Text _text;
-
-        public ColorBlock colors
+        [SerializeField] private Image _image;
+ 
+        public Color color
         {
-            get => _button.colors;
-            set => _button.colors = value;
+            get => _image.color;
+            set => _image.color = value;
         }
 
         public Button.ButtonClickedEvent onClick => _button.onClick;

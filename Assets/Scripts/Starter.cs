@@ -38,8 +38,17 @@ namespace JHI.Dict
             
             var windowService = FindFirstObjectByType<WindowService>();
             ServiceLocator.RegisterService<IWindowService>(windowService);
+            var exploreWordsService = new ExploreWordsService(unexploredWordsProvider);
+            ServiceLocator.RegisterService(exploreWordsService);
+            var randomIndexService = new RandomIndexService();
+            ServiceLocator.RegisterService(randomIndexService);
 
-            await SceneLoader.Load(Consts.MAIN_SCENE_PATH);
+
+#if UI_ELEMENTS
+            await SceneLoader.Load(Consts.MAIN_UIELEMENTS_SCENE_PATH);
+#else
+            await SceneLoader.Load(Consts.MAIN_UGUI_SCENE_PATH);
+#endif
 
             windowService.OpenWindow<MainWindow>();
         }

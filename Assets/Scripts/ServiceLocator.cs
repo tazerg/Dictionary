@@ -23,7 +23,7 @@ namespace JHI.Dict
         {
             if (!_services.TryGetValue(typeof(T), out var service))
             {
-                Debug.LogError($"Service type {nameof(T)} not registered");
+                Debug.LogError($"Service type {typeof(T).Name} not registered");
                 return default;
             }
 
