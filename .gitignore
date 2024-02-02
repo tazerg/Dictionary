@@ -76,3 +76,5 @@ crashlytics-build.properties
 
 /Assets/Editor/JSON/
 /Assets/Editor/JSON.meta
+
+/.utmp/

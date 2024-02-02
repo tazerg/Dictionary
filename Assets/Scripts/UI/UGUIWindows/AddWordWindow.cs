@@ -42,6 +42,8 @@ namespace JHI.Dict.UI.UGUI
             var translate = _translateTextField.text;
             var word = new Word(original, translate);
             _addingWordService.Add(word);
+            _originalTextField.text = string.Empty;
+            _translateTextField.text = string.Empty;
         }
 
         private void OnCloseClick()
