@@ -53,13 +53,24 @@ namespace JHI.Dict
             windowService.OpenWindow<MainWindow>();
         }
 
+#if UNITY_EDITOR
         private void OnDestroy()
         {
             var wordsJson = _wordSerializer.Serialize(_allWordsProvider.GetWords().ToList());
             PlayerPrefsDataStorage.SaveString(Consts.WORDS_PREFS_KEY, wordsJson);
-#if UNITY_EDITOR
             EditorJsonFileSaver.SaveTestFile(wordsJson);
-#endif
         }
+#endif
+
+#if !UNITY_EDITOR
+        private void OnApplicationPause(bool pauseStatus)
+        {
+            if (!pauseStatus)
+                return;
+            
+            var wordsJson = _wordSerializer.Serialize(_allWordsProvider.GetWords().ToList());
+            PlayerPrefsDataStorage.SaveString(Consts.WORDS_PREFS_KEY, wordsJson);
+        }
+#endif
     }
 }

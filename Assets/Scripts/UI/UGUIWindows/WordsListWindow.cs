@@ -40,7 +40,7 @@ namespace JHI.Dict.UI.UGUI
             foreach (var word in _wordsProvider.GetWords())
             {
                 var wordInstance = Instantiate(_wordPanelPrefab, _wordsParent);
-                var progress = word.NumberOfCorrect / 100f;
+                var progress = word.NumberOfCorrect;
                 wordInstance.Setup(word.Original, word.Translate, progress.ToString(CultureInfo.InvariantCulture));
                 _wordInstances.Add(wordInstance);
             }
