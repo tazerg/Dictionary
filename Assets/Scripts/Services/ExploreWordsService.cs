@@ -22,6 +22,7 @@ namespace JHI.Dict.Services
         public void Setup()
         {
             _currentWord = 0;
+            _currentExplored.Clear();
             
             for (var i = 0; i < Consts.MAX_WORDS_IN_SESSION; i++)
             {
@@ -46,10 +47,7 @@ namespace JHI.Dict.Services
 
         public void UpdateProgressCurrent(bool isCorrectAnswer)
         {
-            _currentExplored[_currentWord].NumberOfCorrect = isCorrectAnswer
-                ? ++_currentExplored[_currentWord].NumberOfCorrect 
-                : --_currentExplored[_currentWord].NumberOfCorrect;
-
+            _currentExplored[_currentWord].UpdateCorrectAnswer(isCorrectAnswer);
             _currentWord++;
         }
         

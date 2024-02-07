@@ -60,6 +60,7 @@ namespace JHI.Dict.UI.UGUI
 
         private void OnEnable()
         {
+            _currentExploringWordsCount = 0;
             _exploreWordsService.Setup();
             SelectWord();
         }

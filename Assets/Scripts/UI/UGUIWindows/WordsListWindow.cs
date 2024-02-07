@@ -1,6 +1,6 @@
 #if !UI_ELEMENTS
 using System.Collections.Generic;
-using System.Globalization;
+using JHI.Dict.Model;
 using JHI.Dict.Providers;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,8 +40,8 @@ namespace JHI.Dict.UI.UGUI
             foreach (var word in _wordsProvider.GetWords())
             {
                 var wordInstance = Instantiate(_wordPanelPrefab, _wordsParent);
-                var progress = word.NumberOfCorrect;
-                wordInstance.Setup(word.Original, word.Translate, progress.ToString(CultureInfo.InvariantCulture));
+                wordInstance.Setup(word);
+                wordInstance.UpdateClicked += OnWordUpdateClicked;
                 _wordInstances.Add(wordInstance);
             }
         }
@@ -50,6 +50,7 @@ namespace JHI.Dict.UI.UGUI
         {
             foreach (var wordInstance in _wordInstances)
             {
+                wordInstance.UpdateClicked -= OnWordUpdateClicked;
                 Destroy(wordInstance.gameObject);
             }
             
@@ -59,6 +60,13 @@ namespace JHI.Dict.UI.UGUI
         private void OnCloseClick()
         {
             _windowService.OpenWindow<MainWindow>();
+        }
+
+        private void OnWordUpdateClicked(Word word)
+        {
+            var updateWordWindow = _windowService.GetWindow<UpdateWordWindow>();
+            updateWordWindow.Open(word);
+            Close();
         }
     }
 }
